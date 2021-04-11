@@ -13,7 +13,8 @@ const ListNode = require('../extensions/list-node');
 
 class Queue {
   constructor() {
-    this.list = { next: null };
+    this.list = {};
+    this.a = this.list; // 7777777777777
   }
 
   get size() {
@@ -21,22 +22,14 @@ class Queue {
   }
 
   enqueue(element) {
-    this.list.value = element;
-    this.list = { next: this.list };
-    ListNode(element);
+    this.a.next = new ListNode(element);
+    this.a = this.a.next;
   }
 
   dequeue() {
-    let obj = this.list;
-    let res;
-    let prevObj = obj;
-    while (obj.next) {
-      prevObj = obj;
-      obj = obj.next;
-      res = obj.value;
-    }
-    prevObj.next = null;
-
+    const res = this.list.next.value;
+    delete this.list.next.value;
+    this.list = this.list.next;
     return res;
   }
 }
